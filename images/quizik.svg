@@ -1,0 +1,10 @@
+<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+    <!-- Фон монеты -->
+    <circle cx="16" cy="16" r="14" fill="#FFD700" stroke="#333" stroke-width="2"/>
+    
+    <!-- Звезда в центре -->
+    <path d="M16 10 L16.6 12.4 L19 12.4 L17 14 L17.6 16.4 L16 15 L14.4 16.4 L15 14 L13 12.4 L15.4 12.4 Z" fill="#D48F22"/>
+    
+    <!-- Буква Q -->
+    <text x="16" y="22" font-family="Comic Sans MS, Arial, sans-serif" font-size="10" fill="#D48F22" text-anchor="middle">Q</text>
+</svg>

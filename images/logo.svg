@@ -1,0 +1,16 @@
+<svg width="150" height="150" viewBox="0 0 150 150" xmlns="http://www.w3.org/2000/svg">
+    <!-- Фон -->
+    <rect x="0" y="0" width="150" height="150" fill="none"/>
+    
+    <!-- Книга (ромб) -->
+    <path d="M30 90 L75 60 L120 90 L75 120 Z" fill="#D48F22" stroke="#333" stroke-width="2"/>
+    <path d="M75 60 L75 120" stroke="#333" stroke-width="2"/>
+    
+    <!-- Звезды -->
+    <path d="M75 30 L77 36 L83 36 L78 40 L80 46 L75 42 L70 46 L72 40 L67 36 L73 36 Z" fill="#FFD700"/>
+    <path d="M55 35 L57 41 L63 41 L58 45 L60 51 L55 47 L50 51 L52 45 L47 41 L53 41 Z" fill="#FF0000"/>
+    <path d="M95 35 L97 41 L103 41 L98 45 L100 51 L95 47 L90 51 L92 45 L87 41 L93 41 Z" fill="#0000FF"/>
+    
+    <!-- Текст -->
+    <text x="75" y="140" font-family="Comic Sans MS, Arial, sans-serif" font-size="20" fill="#FFD700" text-anchor="middle">Quiz-for-Kids</text>
+</svg>

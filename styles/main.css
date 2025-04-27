@@ -1,0 +1,461 @@
+body {
+  margin: 0;
+  font-family: "Bubblegum Sans", sans-serif;
+  background-color: #a3bffa; /* Пастельный голубой фон */
+}
+
+header {
+  background-color: #2a2a72; /* Future Dusk для шапки */
+  color: white;
+  padding: 10px 0;
+}
+
+.container {
+  max-width: 1400px; /* Широкая шапка */
+  margin: 0 auto;
+  padding: 0 10px; /* Отступы 10px от краев экрана */
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Равномерное распределение */
+  gap: 20px; /* Отступы между логотипом, заголовком и кнопками */
+  min-height: 80px; /* Высота шапки */
+}
+
+.logo {
+  flex-shrink: 0; /* Логотип не сжимается */
+}
+
+.logo img {
+  width: 90px; /* Уменьшенный размер логотипа */
+  max-width: 7vw;
+  min-width: 50px;
+}
+
+.welcome-text {
+  flex-grow: 1; /* Заголовок занимает центральное пространство */
+  text-align: center;
+  min-width: 200px; /* Минимальная ширина заголовка */
+}
+
+.welcome-text h1 {
+  font-size: calc(14px + 0.7vw); /* Уменьшенный пропорциональный размер */
+  margin: 0;
+  color: #f6e05e;
+  white-space: nowrap;
+}
+
+.welcome-text .line1,
+.welcome-text .line2 {
+  display: inline; /* По умолчанию в одну строку */
+}
+
+.auth-buttons {
+  display: flex;
+  gap: 8px; /* Уменьшенный отступ между кнопками */
+  flex-shrink: 0; /* Кнопки не сжимаются */
+}
+
+.auth-buttons button {
+  background-color: #68d391;
+  border: none;
+  padding: calc(5px + 0.2vw) calc(10px + 0.5vw); /* Уменьшенные кнопки */
+  font-size: calc(9px + 0.3vw); /* Уменьшенный шрифт */
+  color: white;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: transform 0.2s;
+}
+
+.auth-buttons button:hover {
+  transform: scale(1.1);
+}
+
+/* Модальные окна */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.modal.active {
+  display: flex;
+  opacity: 1;
+}
+
+.modal-content {
+  background-color: #2a2a72;
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+  max-height: 80vh; /* Максимальная высота 80% экрана */
+  overflow-y: auto; /* Прокрутка при переполнении */
+  color: white;
+  transform: scale(0.8);
+  transition: transform 0.3s ease;
+}
+
+.modal.active .modal-content {
+  transform: scale(1);
+}
+
+.modal-content h2 {
+  text-align: center;
+  color: #f6e05e;
+  margin: 0 0 15px;
+}
+
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  margin: 10px 0 5px;
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.modal-content input,
+.modal-content select {
+  padding: 10px 30px 10px 10px;
+  border-radius: 5px;
+  border: 1px solid transparent;
+  margin-bottom: 5px;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+.modal-content input.error,
+.modal-content select.error {
+  border-color: red;
+}
+
+.validation-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+}
+
+.validation-icon.valid {
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="green"><path d="M9 16.2l-4.8-4.8L2 13.6l7 7L22 7.4l-2.2-2.2L9 16.2z"/></svg>')
+    no-repeat center;
+  background-size: contain;
+}
+
+.validation-icon.invalid {
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="red"><path d="M19 6.4L17.6 5 12 10.6 6.4 5 5 6.4 10.6 12 5 17.6 6.4 19 12 13.4 17.6 19 19 17.6 13.4 12z"/></svg>')
+    no-repeat center;
+  background-size: contain;
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+  min-height: 16px;
+}
+
+.modal-content a {
+  color: #68d391;
+  text-decoration: none;
+  margin: 5px 0;
+}
+
+.modal-content button {
+  background-color: #68d391;
+  border: none;
+  padding: 10px;
+  color: white;
+  font-size: 18px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.close {
+  float: right;
+  font-size: 30px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.close:hover {
+  color: #68d391;
+}
+
+/* Стили для чекбокса и ссылок */
+.form-links {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  color: #f6e05e; /* Желтый текст */
+  font-size: 14px;
+}
+
+.remember-me input {
+  margin: 0 5px 0 0;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.remember-me span {
+  cursor: pointer;
+}
+
+/* Стили для выбора аватара */
+.avatar-selector {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #68d391;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #3b3b98;
+}
+
+.avatar-selector span {
+  flex-grow: 1;
+  color: white;
+}
+
+.avatar-selector img {
+  width: 50px;
+  height: 50px;
+  border-radius: 5px;
+  margin-left: 10px;
+  border: 1px solid #68d391;
+}
+
+.avatar-modal-content {
+  width: 500px;
+  text-align: center;
+}
+
+.avatar-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.avatar-grid img {
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: border 0.2s;
+}
+
+.avatar-grid img:hover {
+  border: 2px solid #68d391;
+}
+
+/* Две строки для заголовка при ширине <= 1225px */
+@media (max-width: 1225px) {
+  .welcome-text h1 {
+    white-space: normal;
+    line-height: 1.4;
+  }
+
+  .welcome-text .line1,
+  .welcome-text .line2 {
+    display: block;
+  }
+}
+
+/* Адаптивность для планшетов (до 768px) */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 8px;
+    gap: 15px;
+    min-height: 60px;
+  }
+
+  .logo img {
+    width: 70px;
+    max-width: 6vw;
+    min-width: 40px;
+  }
+
+  .welcome-text {
+    min-width: 150px;
+  }
+
+  .welcome-text h1 {
+    font-size: calc(12px + 0.6vw);
+  }
+
+  .auth-buttons {
+    gap: 6px;
+  }
+
+  .auth-buttons button {
+    padding: calc(4px + 0.2vw) calc(8px + 0.4vw);
+    font-size: calc(8px + 0.3vw);
+  }
+
+  .modal-content {
+    width: 80%;
+    padding: 15px;
+    max-height: 70vh;
+  }
+
+  .modal-content h2 {
+    font-size: 18px;
+  }
+
+  .modal-content input,
+  .modal-content select {
+    padding: 8px 25px 8px 8px;
+    font-size: 14px;
+  }
+
+  .modal-content button {
+    font-size: 16px;
+    padding: 8px;
+  }
+
+  .validation-icon {
+    width: 14px;
+    height: 14px;
+  }
+
+  .error-message {
+    font-size: 11px;
+  }
+
+  .close {
+    font-size: 26px;
+  }
+
+  .form-links {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .remember-me {
+    font-size: 13px;
+    align-self: flex-end;
+  }
+
+  .avatar-modal-content {
+    width: 80%;
+  }
+
+  .avatar-grid img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .avatar-selector img {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* Адаптивность для мобильных (до 480px) */
+@media (max-width: 480px) {
+  .container {
+    padding: 0 6px;
+    gap: 10px;
+    min-height: 50px;
+  }
+
+  .logo img {
+    width: 50px;
+    max-width: 5vw;
+    min-width: 30px;
+  }
+
+  .welcome-text {
+    min-width: 100px;
+  }
+
+  .welcome-text h1 {
+    font-size: calc(10px + 0.5vw);
+  }
+
+  .auth-buttons {
+    gap: 5px;
+  }
+
+  .auth-buttons button {
+    padding: calc(3px + 0.2vw) calc(6px + 0.3vw);
+    font-size: calc(7px + 0.3vw);
+  }
+
+  .modal-content {
+    width: 90%;
+    padding: 10px;
+    max-height: 65vh;
+  }
+
+  .modal-content h2 {
+    font-size: 16px;
+  }
+
+  .modal-content input,
+  .modal-content select {
+    padding: 6px 20px 6px 6px;
+    font-size: 12px;
+  }
+
+  .modal-content button {
+    font-size: 14px;
+    padding: 6px;
+  }
+
+  .validation-icon {
+    width: 12px;
+    height: 12px;
+  }
+
+  .error-message {
+    font-size: 10px;
+  }
+
+  .close {
+    font-size: 24px;
+  }
+
+  .remember-me {
+    font-size: 12px;
+  }
+
+  .avatar-modal-content {
+    width: 90%;
+  }
+
+  .avatar-grid img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .avatar-selector img {
+    width: 30px;
+    height: 30px;
+  }
+}
