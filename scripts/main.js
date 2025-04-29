@@ -107,7 +107,9 @@ document.addEventListener("DOMContentLoaded", () => {
     "#login-form, #register-form, #reset-password-form"
   );
   forms.forEach((form) => {
-    const inputs = form.querySelectorAll("input, select");
+    const inputs = form.querySelectorAll(
+      "input:not([type='checkbox']):not([type='hidden']):not([type='file']), select"
+    );
     inputs.forEach((input) => {
       input.addEventListener("input", () => validateField(input));
       input.addEventListener("blur", () => validateField(input));
@@ -117,15 +119,19 @@ document.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
       let allValid = true;
       inputs.forEach((input) => {
-        if (!validateField(input)) {
+        const isValid = validateField(input); // Сохраняем результат валидации
+        console.log("Проверка поля:", input.id); // Отладка
+        console.log(`Поле ${input.id}: ${isValid}`); // Используем isValid
+        if (!isValid) {
           allValid = false;
+          console.log("Поле не валидно:", input.id); // Отладка
         }
       });
+      console.log(`Все поля валидны: ${allValid}`); // Отладка
 
       if (allValid) {
         if (form.id === "reset-password-form") {
           const email = form.querySelector("#reset-email").value;
-          // Отправка AJAX-запроса для восстановления пароля
           fetch("reset_password.php", {
             method: "POST",
             headers: {
@@ -150,31 +156,37 @@ document.addEventListener("DOMContentLoaded", () => {
               errorMessage.textContent = "Ошибка сервера";
             });
         } else {
-          console.log("Форма валидна, данные:", new FormData(form));
+          const formData = new FormData(form);
+          console.log("Форма валидна, данные:");
+          for (const [key, value] of formData.entries()) {
+            console.log(`${key}: ${value}`);
+          }
+          alert("Форма валидна!");
           closeModal(form.closest(".modal").id);
         }
       }
     });
-  });
 
-  // Обработка загрузки кастомного аватара
-  const customAvatarInput = document.getElementById("custom-avatar");
-  customAvatarInput.addEventListener("change", (e) => {
-    const file = e.target.files[0];
-    if (file && file.type.startsWith("image/")) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const selectedAvatar = document.getElementById("selected-avatar");
-        const avatarInput = document.getElementById("avatar");
-        const customAvatarData = document.getElementById("custom-avatar-data");
-        selectedAvatar.src = event.target.result;
-        selectedAvatar.style.display = "block";
-        avatarInput.value = ""; // Сбрасываем стандартный аватар
-        customAvatarData.value = event.target.result; // Сохраняем данные изображения
-        document.querySelector(".avatar-selector span").textContent =
-          "Аватар загружен";
-      };
-      reader.readAsDataURL(file);
-    }
+    // Обработка загрузки кастомного аватара
+    const customAvatarInput = document.getElementById("custom-avatar");
+    customAvatarInput.addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (file && file.type.startsWith("image/")) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          const selectedAvatar = document.getElementById("selected-avatar");
+          const avatarInput = document.getElementById("avatar");
+          const customAvatarData =
+            document.getElementById("custom-avatar-data");
+          selectedAvatar.src = event.target.result;
+          selectedAvatar.style.display = "block";
+          avatarInput.value = ""; // Сбрасываем стандартный аватар
+          customAvatarData.value = event.target.result; // Сохраняем данные изображения
+          document.querySelector(".avatar-selector span").textContent =
+            "Аватар загружен";
+        };
+        reader.readAsDataURL(file);
+      }
+    });
   });
 });
